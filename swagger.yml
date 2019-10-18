@@ -1,0 +1,72 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger Rest Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /customers:
+    get:
+      operationId: customers.read_all
+      tags:
+        - customers
+      summary: Read the entire list of customers
+      description: Read the list of customers
+      parameters:
+        - name: length
+          in: query
+          type: integer
+          description: Number of people to get from customers
+          required: false
+        - name: offset
+          in: query
+          type: integer
+          description: Offset from beginning of list where to start gathering customers
+          required: false
+      responses:
+        200:
+          description: Successfully read customers list operation
+          schema:
+            type: array
+            items:
+              properties:
+                fname:
+                  type: string
+                lname:
+                  type: string
+                timestamp:
+                  type: string
+
+  /customers/{id_str}:
+    get:
+      operationId: customers.read_one
+      tags:
+        - customers
+      summary: Read one person from the customers list
+      description: Read one person from the customers list
+      parameters:
+        - name: id_str
+          in: path
+          description: Last name of the person to get from the list
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully read person from customers list operation
+          schema:
+            properties:
+              fname:
+                type: string
+              lname:
+                type: string
+              timestamp:
+                type: string
+
+
